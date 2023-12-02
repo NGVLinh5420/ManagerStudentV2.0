@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@android:drawable/ic_menu_myplaces"
+        android:label="@string/app_name"
+        android:roundIcon="@android:drawable/ic_menu_myplaces"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.ManagerStudent"
+        tools:targetApi="31">
+        <activity
+            android:name=".Linh.L_Diem_ThongKe_Gioi"
+            android:exported="false" />
+        <activity
+            android:name=".Linh.L_ThongKe_BarChart"
+            android:exported="false" />
+        <activity
+            android:name=".Linh.L_DKMon_ChiTiet"
+            android:exported="false"
+            android:parentActivityName=".Linh.L_DKMon_DS" />
+        <activity
+            android:name=".Linh.L_Diem_SinhVien"
+            android:exported="false"
+            android:parentActivityName=".Linh.L_DiemActivity" />
+        <activity
+            android:name=".Linh.L_DKMon_DS"
+            android:exported="false"
+            android:parentActivityName=".Activity_Main" />
+        <activity
+            android:name=".Linh.L_SinhVien_Them"
+            android:exported="false"
+            android:parentActivityName=".Linh.L_SinhVienActivity" />
+        <activity
+            android:name=".Activity_Login"
+            android:exported="true"
+            android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Activity_SignUp"
+            android:exported="false"
+            android:noHistory="true"
+            android:parentActivityName=".Activity_Login" />
+        <activity
+            android:name=".Activity_Main"
+            android:exported="false"
+            android:noHistory="false" />
+        <activity
+            android:name=".Linh.L_DiemActivity"
+            android:exported="false"
+            android:parentActivityName=".Activity_Main" />
+        <activity
+            android:name=".Linh.L_SinhVienActivity"
+            android:exported="false"
+            android:parentActivityName=".Activity_Main" />
+        <activity
+            android:name=".Linh.L_SinhVien_ThongTin"
+            android:exported="false"
+            android:parentActivityName=".Linh.L_SinhVienActivity" />
+        <activity
+            android:name=".Minh.M_MonHoc_Sua"
+            android:exported="false"
+            android:parentActivityName=".Minh.M_MonHoc" />
+        <activity
+            android:name=".Minh.M_MonHoc_Them"
+            android:exported="false"
+            android:parentActivityName=".Minh.M_MonHoc" />
+        <activity
+            android:name=".Minh.M_MonHoc"
+            android:exported="false"
+            android:parentActivityName=".Minh.M_HocKi" />
+        <activity
+            android:name=".Minh.M_HocKi"
+            android:exported="false"
+            android:parentActivityName=".Minh.M_Khoa" />
+        <activity
+            android:name=".Minh.M_Khoa"
+            android:exported="false"
+            android:parentActivityName=".Activity_Main" />
+    </application>
+
+</manifest>

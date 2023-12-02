@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center|top"
+    android:orientation="vertical"
+    tools:context=".Linh.L_DKMon_ChiTiet">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#6750A3"
+        android:gravity="center"
+        android:padding="5dp">
+
+        <Button
+            android:id="@+id/dkm_btnBack"
+            android:layout_width="70dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:drawableBottom="@drawable/l_baseline_keyboard_backspace_24" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="-40dp"
+            android:layout_weight="1"
+            android:text="ĐĂNG KÝ HỌC PHẦN"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="30dp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/dkm_tvMssvTen"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="MSSV+Ten"
+            android:textColor="#4CAF50"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/dkm_tvKhoa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:gravity="center"
+        android:text="Khoa"
+        android:textColor="#6750A3"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center|start"
+        android:padding="5dp">
+
+        <TextView
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20sp"
+            android:text="Học Kỳ"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/dkm_spHocKy"
+            android:layout_width="170dp"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center|start"
+        android:padding="5dp">
+
+        <!--  LAYOUT-BUTTONS-CRUD -->
+        <TextView
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="Học Phần"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/dkm_spHocPhan"
+            android:layout_width="170dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="10dp"
+            android:gravity="center|start" />
+
+        <!--  LAYOUT-BUTTONS-ADVANCE -->
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/dkm_btnDangKy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="150dp"
+        android:text="Đăng Ký" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="Số Học Phần Đã ĐK: "
+            tools:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/dkm_tvSLMonDK"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/dkm_lvMonDK"
+        android:layout_width="match_parent"
+        android:layout_height="526dp"
+        android:layout_margin="10dp"
+        android:background="@android:color/system_accent1_100" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginRight="5dp"
+        android:gravity="center|end"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/dkm_btnRemove"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Huỷ Học Phần" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/l_ms_login_background"
+    android:gravity="center|top"
+    android:orientation="vertical"
+    android:padding="20dp"
+    tools:context=".Activity_Login">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="300dp"
+        android:text="Manager Student "
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="20pt"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+        <!--User-->
+
+        <EditText
+            android:id="@+id/edtUser"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:background="@android:drawable/editbox_background"
+            android:gravity="start"
+            android:hint="User"
+            android:inputType="text"
+            android:padding="10dp"
+            android:textSize="34sp"
+            android:textStyle="bold" />
+
+        <!--Password-->
+        <EditText
+            android:id="@+id/edtPassword"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@android:drawable/editbox_background"
+            android:gravity="start"
+            android:hint="Password"
+            android:inputType="text"
+            android:padding="10dp"
+            android:textSize="34sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/edtConfirmPassword"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@android:drawable/editbox_background"
+            android:gravity="start"
+            android:hint="Confirm Password"
+            android:inputType="text"
+            android:padding="10dp"
+            android:textSize="34sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnClear"
+        android:layout_width="170dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="50dp"
+        android:text="Clear"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        app:backgroundTint="#8BC34A" />
+
+    <Button
+        android:id="@+id/btnConfirm"
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Confirm"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        app:backgroundTint="#4CAF50" />
+
+</LinearLayout>
