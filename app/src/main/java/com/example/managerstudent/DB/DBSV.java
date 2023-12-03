@@ -217,22 +217,33 @@ public class DBSV extends SQLiteOpenHelper {
         }
     }
 
+    public void Doc_SVTheoKhoa(String khoa) {
+        dsSinhVien.clear();
+
+        SQLiteDatabase db = getReadableDatabase();
+        String quertyDoc = "SELECT * FROM tbSINHVIEN WHERE khoa=?";
+        Cursor cursor = db.rawQuery(quertyDoc, new String[]{khoa});
+        if (cursor.moveToFirst()) {
+            do {
+                DTO_SV sv = new DTO_SV();
+                sv.set_MSSV(cursor.getString(0));
+                sv.set_Ten(cursor.getString(1));
+                sv.set_GioiTinh(cursor.getString(2));
+                sv.set_NgaySinh(cursor.getString(3));
+                sv.set_Khoa(cursor.getString(4));
+                sv.set_NamHoc(cursor.getString(5));
+                dsSinhVien.add(sv);
+            } while (cursor.moveToNext());
+        }
+    }
+
     //Đọc danh sách sinh viên có tổng điểm trung bình (là trung bình cộng của diem1 và diem2 của tất cả môn học)
     // lớn hơn hoặc bằng 8 ở khoa và trong HK
     public ArrayList<DTO_SV> Doc_SinhVien_Gioi(String tenKhoa, String hocKy) {
         ArrayList<DTO_SV> dsSVGioi = new ArrayList<>();
         SQLiteDatabase db = getReadableDatabase();
 
-        String quertyDoc = "SELECT tbSINHVIEN.*\n" +
-                "FROM tbSINHVIEN\n" +
-                "JOIN (\n" +
-                "    SELECT mssv, AVG((diem1 + diem2) / 2.0) AS avgDiem\n" +
-                "    FROM tbDIEM\n" +
-                "    JOIN tbMONHOC ON tbDIEM.mamh = tbMONHOC.mamh\n" +
-                "    WHERE tbMONHOC.tenkhoa=? AND tbMONHOC.hocky=? \n" +
-                "    GROUP BY mssv\n" +
-                ") AS tbDiemTB ON tbSINHVIEN.mssv = tbDiemTB.mssv\n" +
-                "WHERE tbDiemTB.avgDiem >= 8;";
+        String quertyDoc = "SELECT tbSINHVIEN.*\n" + "FROM tbSINHVIEN\n" + "JOIN (\n" + "    SELECT mssv, AVG((diem1 + diem2) / 2.0) AS avgDiem\n" + "    FROM tbDIEM\n" + "    JOIN tbMONHOC ON tbDIEM.mamh = tbMONHOC.mamh\n" + "    WHERE tbMONHOC.tenkhoa=? AND tbMONHOC.hocky=? \n" + "    GROUP BY mssv\n" + ") AS tbDiemTB ON tbSINHVIEN.mssv = tbDiemTB.mssv\n" + "WHERE tbDiemTB.avgDiem >= 8;";
 
         Cursor cursor = db.rawQuery(quertyDoc, new String[]{tenKhoa, hocKy});
         if (cursor.moveToFirst()) {
@@ -310,7 +321,7 @@ public class DBSV extends SQLiteOpenHelper {
         dsKhoa.clear();
 
         SQLiteDatabase db = getReadableDatabase();
-        String sql = "Select * from tbKhoa";
+        String sql = "SELECT * FROM tbKHOA ORDER BY tenkhoa ASC;";
         Cursor cursor = db.rawQuery(sql, null);
         if (cursor.moveToFirst()) {
             do {
@@ -384,10 +395,7 @@ public class DBSV extends SQLiteOpenHelper {
         ArrayList<DTO_HocPhan> ds = new ArrayList<>();
 
         SQLiteDatabase db = getReadableDatabase();
-        String sql = "SELECT tbMONHOC.*\n" +
-                "FROM tbMONHOC\n" +
-                "JOIN tbDKMH ON tbMONHOC.mamh = tbDKMH.mamh\n" +
-                "WHERE tbMONHOC.hocky = ? AND tbDKMH.mssv = ?;";
+        String sql = "SELECT tbMONHOC.*\n" + "FROM tbMONHOC\n" + "JOIN tbDKMH ON tbMONHOC.mamh = tbDKMH.mamh\n" + "WHERE tbMONHOC.hocky = ? AND tbDKMH.mssv = ?;";
 
         Cursor cursor = db.rawQuery(sql, new String[]{hk, mssv});
         if (cursor.moveToFirst()) {
