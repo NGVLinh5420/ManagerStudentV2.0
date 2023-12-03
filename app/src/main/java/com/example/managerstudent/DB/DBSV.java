@@ -30,7 +30,7 @@ public class DBSV extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         //Table SinhVien, Diem
         String quertySinhVien = "CREATE TABLE IF NOT EXISTS tbSINHVIEN(mssv TEXT NOT NULL PRIMARY KEY, ten TEXT, gioitinh TEXT, ngaysinh TEXT, khoa TEXT, namhoc Text)"; //6
-        String quertyDiem = "CREATE TABLE IF NOT EXISTS tbDIEM(mamh TEXT NOT NULL, mssv TEXT NOT NULL, diem1 TEXT, diem2 TEXT)"; //5
+        String quertyDiem = "CREATE TABLE IF NOT EXISTS tbDIEM(mamh TEXT NOT NULL, mssv TEXT NOT NULL, diem1 TEXT DEFAULT '0', diem2 TEXT DEFAULT '0')"; //5
         db.execSQL(quertySinhVien);
         db.execSQL(quertyDiem);
 
@@ -255,23 +255,21 @@ public class DBSV extends SQLiteOpenHelper {
         }
     }
 
-    public void Doc_DiemTheoMSSV_MaMH(String mssv, String mamh) {
-        dsDiem.clear();
+    public DTO_Diem Doc_DiemTheoMSSV_MaMH(String mssv, String mamh) {
+        DTO_Diem diem = new DTO_Diem();
 
         SQLiteDatabase db = getReadableDatabase();
         String quertyDiem = "SELECT * FROM tbDIEM WHERE mamh=? AND mssv=?";
         Cursor cursor = db.rawQuery(quertyDiem, new String[]{mamh, mssv});
         if (cursor.moveToFirst()) {
             do {
-                DTO_Diem d = new DTO_Diem();
-                d.set_mamh(cursor.getString(0));
-                d.set_mssv(cursor.getString(1));
-                d.set_diem1(cursor.getString(2));
-                d.set_diem2(cursor.getString(3));
-                dsDiem.add(d);
-
+                diem.set_mamh(cursor.getString(0));
+                diem.set_mssv(cursor.getString(1));
+                diem.set_diem1(cursor.getString(2));
+                diem.set_diem2(cursor.getString(3));
             } while (cursor.moveToNext());
         }
+        return diem;
     }
 
     public void Doc_Khoa() {

@@ -80,8 +80,6 @@ public class Activity_Main extends AppCompatActivity implements NavigationView.O
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-
-
         int id = item.getItemId();
 
         if (id == R.id.menu_nav_Home) {

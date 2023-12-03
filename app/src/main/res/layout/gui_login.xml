@@ -21,17 +21,10 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="511dp"
-        android:gravity="center"
+        android:layout_height="507dp"
+        android:gravity="bottom|center"
         android:orientation="vertical">
         <!--User-->
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="218dp"
-            android:layout_height="175dp"
-            android:layout_marginVertical="20dp"
-            android:src="@drawable/l_home_tdc_background" />
 
         <EditText
             android:id="@+id/edtUser"
@@ -65,7 +58,7 @@
         android:id="@+id/btnSignIn"
         android:layout_width="170dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="70dp"
+        android:layout_marginTop="50dp"
         android:text="Log In"
         android:textSize="30dp"
         android:textStyle="bold"

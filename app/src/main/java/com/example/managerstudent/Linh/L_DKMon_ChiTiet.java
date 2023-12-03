@@ -26,7 +26,7 @@ public class L_DKMon_ChiTiet extends AppCompatActivity implements AdapterView.On
     private ArrayAdapter<DTO_HocPhan> adapterLV;
 
     public static String luuMaMonHoc;
-    int maMHCanXoa;
+    int vtriHP = -1;
     String maSV = DBSV.getLuuSinhVien().get_MSSV();
     static String tenMH;
 
@@ -62,13 +62,6 @@ public class L_DKMon_ChiTiet extends AppCompatActivity implements AdapterView.On
         adapterSPHocKy.setDropDownViewResource(android.R.layout.select_dialog_item);
         spHocKy.setAdapter(adapterSPHocKy);
         spHocKy.setOnItemSelectedListener(this);
-
-        //Spinner môn học
-//        ArrayAdapter<String> adapterSPMonHoc = new ArrayAdapter<>(this,
-//                android.R.layout.select_dialog_item, LayDSMonHoc(spHocKy.getSelectedItem().toString()));
-//        adapterSPMonHoc.setDropDownViewResource(android.R.layout.select_dialog_item);
-//        spMonHoc.setAdapter(adapterSPMonHoc);
-//        spMonHoc.setOnItemSelectedListener(L_DKMon_ChiTiet.this);
     }
 
 
@@ -77,9 +70,7 @@ public class L_DKMon_ChiTiet extends AppCompatActivity implements AdapterView.On
         tvMssvTen.setText(maSV + "\n" + DBSV.getLuuSinhVien().get_Ten());
         tvKhoa.setText(DBSV.getLuuSinhVien().get_Khoa());
 
-//        dbSV.Doc_DKMH(maSV);
-//        adapterLV = new ArrayAdapter<>(L_DKMon_ChiTiet.this, android.R.layout.simple_list_item_1, DBSV.dsDKMH);
-//        lvHocPhan.setAdapter(adapterLV);
+        adapterLV = new ArrayAdapter<>(L_DKMon_ChiTiet.this, android.R.layout.simple_list_item_1, LayDSMonHocDaDK());
 
         //--2.Buttons
         btnDangKy.setOnClickListener(new View.OnClickListener() {
@@ -90,18 +81,29 @@ public class L_DKMon_ChiTiet extends AppCompatActivity implements AdapterView.On
                     tenMH = spMonHoc.getSelectedItem().toString();
                     String maMH = dbSV.Tim_MaMH_TheoTenMH(tenMH);
 
-                    LayDSMonHocDaDK().forEach(hp -> {
+                    Boolean flag = true;
+                    for (DTO_HocPhan hp : LayDSMonHocDaDK()) {
                         if (hp.getMaMH().equals(maMH)) {
                             Toast.makeText(L_DKMon_ChiTiet.this, "SV Đã ĐK HP này.", Toast.LENGTH_SHORT).show();
-                            return;
+                            flag = false;
                         }
-                    });
+                    }
 
                     // ĐK
-                    dbSV.DK_MonHoc(maSV, maMH);
-                    dbSV.Doc_DKMH(maSV);
-                    Toast.makeText(L_DKMon_ChiTiet.this, "ĐK Thành Công.", Toast.LENGTH_SHORT).show();
-                    lvHocPhan.setAdapter(adapterLV);
+                    if (flag) {
+                        dbSV.DK_MonHoc(maSV, maMH);
+                        dbSV.Doc_DKMH(maSV);
+
+                        //** Làm mới listview theo thời gian thực
+                        adapterLV.clear();
+                        adapterLV.addAll(LayDSMonHocDaDK());
+                        adapterLV.notifyDataSetChanged();
+                        lvHocPhan.setAdapter(adapterLV);
+                        tvSLHP.setText("" + lvHocPhan.getCount());
+                        //**
+
+                        Toast.makeText(L_DKMon_ChiTiet.this, "ĐK Thành Công.", Toast.LENGTH_SHORT).show();
+                    }
                 } else Toast.makeText(L_DKMon_ChiTiet.this, "ĐK Lỗi.", Toast.LENGTH_SHORT).show();
             }
         });
@@ -109,22 +111,32 @@ public class L_DKMon_ChiTiet extends AppCompatActivity implements AdapterView.On
         lvHocPhan.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                maMHCanXoa = position;
+                vtriHP = position;
             }
         });
 
         btnHuyHP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String maMH = DBSV.dsDKMH.get(maMHCanXoa).getMaMH();
-                String maSV = DBSV.dsDKMH.get(maMHCanXoa).getMaSV();
+                if (vtriHP > -1) {
+                    String maMH = DBSV.dsDKMH.get(vtriHP).getMaMH();
+                    String maSV = DBSV.dsDKMH.get(vtriHP).getMaSV();
 
-                dbSV.Xoa_DKMH(maSV, maMH);
+                    dbSV.Xoa_DKMH(maSV, maMH);
+                    dbSV.Doc_DKMH(maSV);
 
-                dbSV.Doc_DKMH(maSV);
-                lvHocPhan.setAdapter(adapterLV);
+                    //** Làm mới listview theo thời gian thực
+                    adapterLV.clear();
+                    adapterLV.addAll(LayDSMonHocDaDK());
+                    adapterLV.notifyDataSetChanged();
+                    lvHocPhan.setAdapter(adapterLV);
+                    tvSLHP.setText("" + lvHocPhan.getCount());
+                    //**
 
-                Toast.makeText(L_DKMon_ChiTiet.this, "Đã Huỷ HP " + maMH, Toast.LENGTH_SHORT).show();
+                    vtriHP = -1;
+                    Toast.makeText(L_DKMon_ChiTiet.this, "Đã Huỷ Mã HP: " + maMH, Toast.LENGTH_SHORT).show();
+                } else
+                    Toast.makeText(L_DKMon_ChiTiet.this, "Chưa Chọn Học Phần.", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -141,9 +153,7 @@ public class L_DKMon_ChiTiet extends AppCompatActivity implements AdapterView.On
         String hocky = parent.getItemAtPosition(position).toString();
 
         dbSV.Doc_DKMH(DBSV.getLuuSinhVien().get_MSSV());
-        adapterLV = new ArrayAdapter<>(L_DKMon_ChiTiet.this, android.R.layout.simple_list_item_1, LayDSMonHocDaDK());
         lvHocPhan.setAdapter(adapterLV);
-
         tvSLHP.setText("" + lvHocPhan.getCount());
 
         //spinner Mon Hoc
@@ -151,6 +161,7 @@ public class L_DKMon_ChiTiet extends AppCompatActivity implements AdapterView.On
                 android.R.layout.select_dialog_item, LayDSMonHoc(hocky));
         spMonHoc.setAdapter(adapterSPMonHoc);
     }
+
     public ArrayList<String> LayDSMonHoc(String hk) {
         ArrayList<String> ds = new ArrayList<>();
         ArrayList<DTO_HocPhan> dsmon = new ArrayList<>();
@@ -162,14 +173,17 @@ public class L_DKMon_ChiTiet extends AppCompatActivity implements AdapterView.On
         }
         return ds;
     }
+
     public ArrayList<DTO_HocPhan> LayDSMonHocDaDK() {
-        ArrayList<DTO_HocPhan> dsMH = new ArrayList<>();
+        dbSV.Doc_DKMH(maSV);
+
+        ArrayList<DTO_HocPhan> dsMHDaDK = new ArrayList<>();
         for (int i = 0; i < DBSV.dsDKMH.size(); i++) {
             DTO_HocPhan monHoc = new DTO_HocPhan();
             monHoc = dbSV.Doc_MHTheoMaMH(DBSV.dsDKMH.get(i).getMaMH());
-            dsMH.add(monHoc);
+            dsMHDaDK.add(monHoc);
         }
-        return dsMH;
+        return dsMHDaDK;
     }
 
     @Override
