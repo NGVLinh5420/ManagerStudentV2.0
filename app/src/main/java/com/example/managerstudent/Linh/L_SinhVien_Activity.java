@@ -2,6 +2,8 @@ package com.example.managerstudent.Linh;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -9,6 +11,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -19,12 +22,12 @@ import com.example.managerstudent.R;
 public class L_SinhVien_Activity extends AppCompatActivity {
 
     TextView tvSoLuongSV;
-    Button btnBack, btnThem;
+    Button btnBack, btnThem, btnTimKiem;
     private ListView lvSinhVien;
     static public ArrayAdapter<DTO_SV> adapterListView;
 
     //DataBase
-    private DBSV dbQLSV = new DBSV(this);
+    private DBSV dbsv = new DBSV(this);
 
 
     @Override
@@ -39,6 +42,7 @@ public class L_SinhVien_Activity extends AppCompatActivity {
     private void setControl() {
         btnBack = findViewById(R.id.tt_btnBack);
         btnThem = findViewById(R.id.tt_btnthem);
+        btnTimKiem = findViewById(R.id.tt_btnTimKiem);
 
         tvSoLuongSV = findViewById(R.id.tt_tvSoLuongSV);
         lvSinhVien = findViewById(R.id.thongtin_lvSinhVien);
@@ -47,11 +51,12 @@ public class L_SinhVien_Activity extends AppCompatActivity {
     private void setEvent() {
         //--1.
         //Chay DB, đọc db và lấy ds sinhvien
-        dbQLSV = new DBSV(this);
-        dbQLSV.Doc_SinhVien();
+        dbsv = new DBSV(this);
+        dbsv.Doc_SinhVien();
 
         adapterListView = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, DBSV.getDsSinhVien());
         lvSinhVien.setAdapter(adapterListView);
+        registerForContextMenu(lvSinhVien);
 
         //số lượng ds sinh viên
         String sizeDSSV = "" + DBSV.getDsSinhVien().size();
@@ -77,6 +82,15 @@ public class L_SinhVien_Activity extends AppCompatActivity {
             }
         });
 
+        //Tìm kiếm SV
+        btnTimKiem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(L_SinhVien_Activity.this, L_SinhVien_TimKiem_Activity.class);
+                startActivity(intent);
+            }
+        });
+
         // Quay Về Home
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,11 +103,33 @@ public class L_SinhVien_Activity extends AppCompatActivity {
 
     // Click List View
     private void ClickListView(String mssv) {
-
         //Truyền MSSV của đối tượng SV đã Click sang class.Thông tin chi tiết
         DBSV.setLuuMSSV(mssv);
 
         Intent intent = new Intent(L_SinhVien_Activity.this, L_SinhVien_ThongTin.class);
         startActivity(intent);
+    }
+
+
+    //--Context Menu
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        super.onCreateContextMenu(menu, v, menuInfo);
+        menu.setHeaderTitle("Context Menu");
+        menu.add(0, v.getId(), 0, "Xem Điểm");
+    }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        int position = info.position; // Vị trí của item được chọn trong ListView
+        if (item.getTitle() == "Xem Điểm") {
+            //Lưu SV vào class DBSV
+            DBSV.setLuuMSSV(DBSV.dsSinhVien.get(position).get_MSSV());
+            Intent intent = new Intent(L_SinhVien_Activity.this, L_SinhVien_ThongTin.class);
+            startActivity(intent);
+        }
+        return true;
     }
 }

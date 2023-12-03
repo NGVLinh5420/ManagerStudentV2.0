@@ -1,10 +1,14 @@
 package com.example.managerstudent.Linh;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.ContextMenu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -65,7 +69,6 @@ public class L_Diem_SinhVien extends AppCompatActivity implements AdapterView.On
         btnBack = findViewById(R.id.d_btnBack2);
         btnSave = findViewById(R.id.d_ibtnSave);
         btnRefresh = findViewById(R.id.d_ibtnRefresh);
-
 
         //Spinner
         spHocKy = findViewById(R.id.d_spHocKy);

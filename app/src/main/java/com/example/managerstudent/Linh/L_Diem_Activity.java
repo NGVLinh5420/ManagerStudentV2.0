@@ -1,10 +1,13 @@
 package com.example.managerstudent.Linh;
 
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -18,11 +21,6 @@ import com.example.managerstudent.R;
 
 public class L_Diem_Activity extends AppCompatActivity {
 
-    //    private String luuMssv;
-//    private TextView tvMssvTen, tvDiem1, tvDiem2, tvDiem3, tvKhoa, tvSoLuongSV;
-//    private EditText edtDiem1, edtDiem2, edtDiem3;
-//    Spinner spHocKy;
-//    private Button btnSave, btnClear, btnBack;
     private Button btnBack, btnThongKe;
     private TextView tvSoLuongSV;
     private ListView lvSinhVien;
@@ -42,6 +40,8 @@ public class L_Diem_Activity extends AppCompatActivity {
 
     private void setControls() {
         lvSinhVien = findViewById(R.id.d_lvSinhVien);
+        registerForContextMenu(lvSinhVien);
+
         btnBack = findViewById(R.id.d_btnBack);
         btnThongKe = findViewById(R.id.d_btnThongKeGioi);
 
@@ -49,7 +49,7 @@ public class L_Diem_Activity extends AppCompatActivity {
     }
 
     private void setEvents() {
-        //--1.
+        // --1.
         //Chay DB, đọc db và lấy ds sinhvien
         dbSV.Doc_SinhVien();
         dbSV.Doc_SinhVien();
@@ -60,7 +60,7 @@ public class L_Diem_Activity extends AppCompatActivity {
         String sizeDSSV = "" + DBSV.sizeDSSV();
         tvSoLuongSV.setText(sizeDSSV);
 
-        //selected item ListView
+        // ListView
         lvSinhVien.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View v, int i, long viTri) {
@@ -72,7 +72,7 @@ public class L_Diem_Activity extends AppCompatActivity {
             }
         });
 
-        //--2.Buttons
+        // --2.Buttons
         //Button Back
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,48 +89,27 @@ public class L_Diem_Activity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
-//        // Button Clear Text
-//        btnClear.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                edtDiem1.setText(null);
-//                edtDiem2.setText(null);
-//                edtDiem3.setText(null);
-//                Toast.makeText(L_Diem_Activity.this, "Đã Clear.", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//        // Button SAVE
-//        btnSave.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                //Kiểm Format tra điểm
-//                if (Integer.parseInt(edtDiem1.getText().toString()) < 0 || Integer.parseInt(edtDiem1.getText().toString()) > 10)
-//                    return;
-//                if (Integer.parseInt(edtDiem2.getText().toString()) < 0 || Integer.parseInt(edtDiem2.getText().toString()) > 10)
-//                    return;
-//                if (Integer.parseInt(edtDiem3.getText().toString()) < 0 || Integer.parseInt(edtDiem3.getText().toString()) > 10)
-//                    return;
-//
-//                //Begin
-//                DTO_Diem d = new DTO_Diem();
-//                d.set_mssv(luuMssv);
-//                d.set_Diem1(edtDiem1.getText().toString());
-//                d.set_Diem2(edtDiem2.getText().toString());
-//                d.set_Diem3(edtDiem3.getText().toString());
-//                dbSV.Sua_Diem(d);
-//
-//                dsDiem.addAll(dbSV.Doc_Diem());
-//                dbSV.Doc_SinhVien();
-//                lvSinhVien.setAdapter(adapterListView);
-//
-//                //End
-//                Toast.makeText(L_Diem_Activity.this, "Lưu Thành Công!!", Toast.LENGTH_SHORT).show();
-//            }
-//        });
     }
 
+    //--Context Menu
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        super.onCreateContextMenu(menu, v, menuInfo);
+        menu.setHeaderTitle("Context Menu");
+        menu.add(0, v.getId(), 0, "Xem Thông Tin");
+    }
 
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        int position = info.position; // Vị trí của item được chọn trong ListView
+        if (item.getTitle() == "Xem Thông Tin") {
+            //Lưu SV vào class DBSV
+            DBSV.setLuuMSSV(DBSV.dsSinhVien.get(position).get_MSSV());
+            Intent intent = new Intent(L_Diem_Activity.this, L_SinhVien_ThongTin.class);
+            startActivity(intent);
+        }
+        return true;
+    }
 }

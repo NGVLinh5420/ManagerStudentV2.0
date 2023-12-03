@@ -43,8 +43,17 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center|end"
+        android:gravity="center"
         android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/tt_btnTimKiem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:backgroundTint="#4CAE50"
+            android:drawableRight="?android:attr/actionModeFindDrawable"
+            android:text="Tìm Kiếm\nSinh Viên" />
 
         <Button
             android:id="@+id/tt_btnthem"
@@ -53,12 +62,13 @@
             android:layout_margin="10dp"
             android:backgroundTint="#4CAF50"
             android:drawableRight="@drawable/baseline_person_add_alt_1_24"
-            android:text="Thêm Sinh Viên" />
+            android:text="Thêm\nSinh Viên" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/material_dynamic_neutral90"
         android:orientation="horizontal">
 
         <TextView
@@ -81,7 +91,7 @@
         android:id="@+id/thongtin_lvSinhVien"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#4103A9F4"
+        android:background="@android:drawable/dialog_holo_light_frame"
         android:padding="10dp"
         android:textAlignment="textStart"></ListView>
 

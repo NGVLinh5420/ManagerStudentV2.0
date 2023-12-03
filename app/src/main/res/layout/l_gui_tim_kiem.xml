@@ -1,9 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Linh.L_TimKiem_Activity">
+    android:orientation="vertical"
+    tools:context=".Linh.L_SinhVien_TimKiem_Activity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#6750A3"
+        android:gravity="center"
+        android:padding="5dp">
+
+        <Button
+            android:id="@+id/tk_btnBack"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:drawableBottom="@drawable/l_baseline_keyboard_backspace_24" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="-50dp"
+            android:layout_weight="1"
+            android:text="TÌM KIẾM SINH VIÊN"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="51dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/tk_edtNhap"
+            android:layout_width="264dp"
+            android:layout_height="match_parent"
+            android:background="@android:drawable/editbox_background_normal"
+            android:inputType="text" />
+
+        <ImageButton
+            android:id="@+id/tk_btnTimKiem"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@android:drawable/editbox_background_normal"
+            android:src="?android:attr/actionModeWebSearchDrawable" />
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/tk_lvSinhVien"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:drawable/dialog_holo_light_frame"
+        android:padding="10dp"
+        android:textAlignment="textStart">
+
+    </ListView>
+
+    <TextView
+        android:id="@+id/tk_TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-500dp"
+        android:text="DANH SÁCH KẾT QUẢ\nTÌM KIẾM"
+        android:textAlignment="center"
+        android:textColor="#4CAF50"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:visibility="visible" />
+</LinearLayout>

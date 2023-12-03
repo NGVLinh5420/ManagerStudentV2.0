@@ -262,6 +262,28 @@ public class DBSV extends SQLiteOpenHelper {
         return dsSVGioi;
     }
 
+    public ArrayList<DTO_SV> TimKiem_SV(String mssv, String ten) {
+        ArrayList<DTO_SV> ds = new ArrayList<>();
+        SQLiteDatabase db = getReadableDatabase();
+
+        String quertyDoc = "SELECT * FROM tbSINHVIEN WHERE mssv LIKE ? OR ten LIKE ?;";
+        Cursor cursor = db.rawQuery(quertyDoc, new String[]{mssv, ten});
+        if (cursor.moveToFirst()) {
+            do {
+                DTO_SV sv = new DTO_SV();
+                sv.set_MSSV(cursor.getString(0));
+                sv.set_Ten(cursor.getString(1));
+                sv.set_GioiTinh(cursor.getString(2));
+                sv.set_NgaySinh(cursor.getString(3));
+                sv.set_Khoa(cursor.getString(4));
+                sv.set_NamHoc(cursor.getString(5));
+                ds.add(sv);
+            } while (cursor.moveToNext());
+        }
+
+        return ds;
+    }
+
     public void Doc_Diem() {
         dsDiem.clear();
 

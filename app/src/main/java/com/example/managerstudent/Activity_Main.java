@@ -11,7 +11,11 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.example.managerstudent.DB.DBSV;
 import com.example.managerstudent.Linh.L_ThongKe_BarChart;
@@ -19,7 +23,9 @@ import com.example.managerstudent.Linh.L_DKHocPhan_Activity;
 import com.example.managerstudent.Linh.L_Diem_Activity;
 import com.example.managerstudent.Linh.L_SinhVien_Activity;
 import com.example.managerstudent.Minh.M_Khoa;
+import com.example.managerstudent.fragment.FragmentAccount;
 import com.example.managerstudent.fragment.Fragment_Home;
+import com.example.managerstudent.fragment.ScrollingFragment;
 import com.google.android.material.navigation.NavigationView;
 
 public class Activity_Main extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -32,10 +38,14 @@ public class Activity_Main extends AppCompatActivity implements NavigationView.O
 
     //giup phat hien fragment nao dang mo
     private static final int FRAGMENT_HOME = 0;
+    private static final int FRAGMENT_DIEUKHOAN = 1;
+    private static final int FRAGMENT_TAIKHOAN = 2;
 
     //FRAGMENT DANG CHAY
     //gán nó mặc định là Fragment Home
     private int nowFragment = FRAGMENT_HOME;
+    private int dieuKhoanFragment = FRAGMENT_DIEUKHOAN;
+    private int taiKhoanFragment = FRAGMENT_TAIKHOAN;
 
     //---------------------------------------------------
     @Override
@@ -54,7 +64,6 @@ public class Activity_Main extends AppCompatActivity implements NavigationView.O
     }
 
     private void setEvents() {
-
 
         //dua toolbar vao
         setSupportActionBar(toolbar);
@@ -86,6 +95,9 @@ public class Activity_Main extends AppCompatActivity implements NavigationView.O
             if (nowFragment != FRAGMENT_HOME) {
                 replaceFragment(new Fragment_Home());
                 nowFragment = FRAGMENT_HOME;
+
+                navigationView.getMenu().findItem(R.id.menu_nav_TaiKhoan).setChecked(false);
+                navigationView.getMenu().findItem(R.id.menu_nav_DieuKhoan).setChecked(false);
                 navigationView.getMenu().findItem(R.id.menu_nav_Home).setChecked(true);
             }
         }
@@ -115,6 +127,28 @@ public class Activity_Main extends AppCompatActivity implements NavigationView.O
             startActivity(intent);
         }
 
+        if (id == R.id.menu_nav_TaiKhoan) {
+//            if (nowFragment == FRAGMENT_TAIKHOAN) {
+            replaceFragment(new FragmentAccount());
+            nowFragment = FRAGMENT_TAIKHOAN;
+
+            navigationView.getMenu().findItem(R.id.menu_nav_Home).setChecked(false);
+            navigationView.getMenu().findItem(R.id.menu_nav_TaiKhoan).setChecked(true);
+            navigationView.getMenu().findItem(R.id.menu_nav_DieuKhoan).setChecked(false);
+//            }
+        }
+
+        if (id == R.id.menu_nav_DieuKhoan) {
+            if (nowFragment != FRAGMENT_DIEUKHOAN) {
+                replaceFragment(new ScrollingFragment());
+                nowFragment = FRAGMENT_DIEUKHOAN;
+
+                navigationView.getMenu().findItem(R.id.menu_nav_Home).setChecked(false);
+                navigationView.getMenu().findItem(R.id.menu_nav_TaiKhoan).setChecked(false);
+                navigationView.getMenu().findItem(R.id.menu_nav_DieuKhoan).setChecked(true);
+            }
+        }
+
         if (id == R.id.menu_nav_Dangxuat) {
             finish();
             Intent intent = new Intent(this, Activity_Login.class);
@@ -125,11 +159,10 @@ public class Activity_Main extends AppCompatActivity implements NavigationView.O
         return true;
     }
 
-    private void replaceFragment(Fragment fragment) {
+    public void replaceFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragment_layout_replace, fragment);
         fragmentTransaction.commit();
-
     }
 
     @Override

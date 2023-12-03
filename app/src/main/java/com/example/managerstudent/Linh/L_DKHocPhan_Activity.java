@@ -1,10 +1,13 @@
 package com.example.managerstudent.Linh;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -24,7 +27,7 @@ public class L_DKHocPhan_Activity extends AppCompatActivity {
     static public ArrayAdapter<DTO_SV> adapterListView;
 
     //DataBase
-    private DBSV dbQLSV = new DBSV(this);
+    private DBSV dbSV = new DBSV(this);
 
 
     @Override
@@ -41,13 +44,14 @@ public class L_DKHocPhan_Activity extends AppCompatActivity {
 
         tvSoLuongSV = findViewById(R.id.dkm_tvSoLuongSV);
         lvSinhVien = findViewById(R.id.dkm_lvSinhVien);
+        registerForContextMenu(lvSinhVien);
     }
 
     private void setEvent() {
         //--1.
         //Chay DB, đọc db và lấy ds sinhvien
-        dbQLSV = new DBSV(this);
-        dbQLSV.Doc_SinhVien();
+        dbSV = new DBSV(this);
+        dbSV.Doc_SinhVien();
 
         adapterListView = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, DBSV.getDsSinhVien());
         lvSinhVien.setAdapter(adapterListView);
@@ -77,5 +81,34 @@ public class L_DKHocPhan_Activity extends AppCompatActivity {
                 L_DKHocPhan_Activity.super.onBackPressed();
             }
         });
+    }
+
+    //--Context Menu
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        super.onCreateContextMenu(menu, v, menuInfo);
+        menu.setHeaderTitle("Context Menu");
+        menu.add(0, v.getId(), 0, "Xem Thông Tin");
+        menu.add(0, v.getId(), 0, "Xem Điểm");
+    }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        int position = info.position; // Vị trí của item được chọn trong ListView
+        if (item.getTitle() == "Xem Thông Tin") {
+            DBSV.setLuuMSSV(DBSV.dsSinhVien.get((int) position).get_MSSV());
+            Intent intent = new Intent(L_DKHocPhan_Activity.this, L_SinhVien_ThongTin.class);
+            startActivity(intent);
+        } else if (item.getTitle() == "Xem Điểm") {
+            //Lưu SV vào class DBSV
+            DBSV.setLuuSinhVien(DBSV.dsSinhVien.get((int) position));
+            Intent intent = new Intent(L_DKHocPhan_Activity.this, L_Diem_SinhVien.class);
+            startActivity(intent);
+        } else {
+            return false;
+        }
+        return true;
     }
 }

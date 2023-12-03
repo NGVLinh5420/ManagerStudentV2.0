@@ -44,6 +44,14 @@
     <item android:title="Option">
         <menu>
             <item
+                android:id="@+id/menu_nav_TaiKhoan"
+                android:icon="?attr/actionModePasteDrawable"
+                android:title="Tài Khoản" />
+            <item
+                android:id="@+id/menu_nav_DieuKhoan"
+                android:icon="@android:drawable/ic_menu_view"
+                android:title="Điều Khoản Sử Dụng" />
+            <item
                 android:id="@+id/menu_nav_Dangxuat"
                 android:icon="@drawable/baseline_logout_24"
                 android:title="Đăng Xuất" />

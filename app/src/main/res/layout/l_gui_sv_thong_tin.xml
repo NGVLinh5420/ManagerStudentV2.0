@@ -57,7 +57,6 @@
                 android:orientation="vertical"
                 android:paddingRight="10dp">
 
-                <!--TODO đổi mssv sang TextView -->
                 <EditText
                     android:id="@+id/tt_edtMSSV"
                     android:layout_width="300dp"

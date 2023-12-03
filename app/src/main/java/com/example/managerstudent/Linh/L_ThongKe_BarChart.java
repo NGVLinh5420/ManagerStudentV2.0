@@ -9,10 +9,14 @@ import android.widget.Button;
 import com.example.managerstudent.DB.DBSV;
 import com.example.managerstudent.R;
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 
 import java.util.ArrayList;
@@ -48,6 +52,23 @@ public class L_ThongKe_BarChart extends AppCompatActivity {
 
         Barchar();
 
+        //Set trục tung hiển thị số nguyên thay vì số thập phân như mặc định
+        YAxis yAxisL = barChart.getAxisLeft();
+        yAxisL.setGranularity(1f);
+        yAxisL.setGranularityEnabled(true);
+        // Ẩn trục Tung trái
+        YAxis yAxisR = barChart.getAxisRight();
+        yAxisR.setEnabled(false);
+        // Hiển thị label phía dưới thay vì mặc định phía trên
+        XAxis xAxis = barChart.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        // Đổi Kích Thước label miêu tả cột
+        xAxis.setTextSize(15f);
+        // Ẩn òng chữ Description label mặc định ở bên phải-dưới
+        Description description = new Description();
+        description.setEnabled(false);
+        barChart.setDescription(description);
+
     }
 
     private void Barchar() {
@@ -75,6 +96,16 @@ public class L_ThongKe_BarChart extends AppCompatActivity {
         BarData data = new BarData(dataSets);
         barChart.setData(data);
         barChart.invalidate(); // refresh
+
+        // Điều chỉnh vị trí của nhãn
+        bardataset.setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                return "" + ((int) value);
+            }
+        });
+        // Điều chỉnh kích thước của nhãn
+        bardataset.setValueTextSize(20f);
     }
 
     public HashMap<String, Integer> CreateHashMap() {
