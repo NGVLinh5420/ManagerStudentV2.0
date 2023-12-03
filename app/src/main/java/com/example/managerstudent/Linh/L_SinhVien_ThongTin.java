@@ -85,11 +85,11 @@ public class L_SinhVien_ThongTin extends AppCompatActivity implements AdapterVie
 
     private void setEvent() {
         // 1.
-        //Chay DB, đọc db và lấy ds sinhvien
+        // Chay DB, đọc db và lấy ds sinhvien
         dbSV = new DBSV(this);
         dbSV.Doc_SinhVien();
 
-        //lấy thông tin sinh viên
+        // lấy thông tin sinh viên
         _AfterClickListView(DBSV.getLuuMSSV());
 
         //--2.Buttons
@@ -204,7 +204,7 @@ public class L_SinhVien_ThongTin extends AppCompatActivity implements AdapterVie
         edtNgaySinh.setText(sv.get_NgaySinh());
         edtNamHoc.setText(sv.get_NamHoc());
 
-        if (sv.get_GioiTinh().equals("NAM")) rdNam.setChecked(true);
+        if (sv.get_GioiTinh().equals("Nam")) rdNam.setChecked(true);
         else rdNu.setChecked(true);
 
         if (rdNu.isChecked())

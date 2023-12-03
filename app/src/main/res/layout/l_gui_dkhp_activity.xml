@@ -80,7 +80,8 @@
         android:id="@+id/dkm_lvSinhVien"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/system_accent1_100"
+        android:layout_margin="10dp"
+        android:background="@android:drawable/editbox_dropdown_light_frame"
         android:padding="10dp"
         android:textAlignment="textStart">
 

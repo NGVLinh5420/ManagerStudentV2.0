@@ -31,7 +31,7 @@
                 android:layout_weight="1"
                 android:text="THÊM SINH VIÊN"
                 android:textAlignment="center"
-                android:textColor="#03FB0D"
+                android:textColor="@color/white"
                 android:textSize="30sp"
                 android:textStyle="bold" />
 
@@ -41,13 +41,13 @@
             android:id="@+id/tt_layoutThongTin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#E8EAF6"
             android:gravity="center_horizontal|top"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:gravity="center">
 
                 <ImageView
@@ -68,6 +68,7 @@
                         android:id="@+id/them_edtMSSV"
                         android:layout_width="300dp"
                         android:layout_height="50dp"
+                        android:background="@android:drawable/editbox_background_normal"
                         android:gravity="center"
                         android:hint="MSSV"
                         android:inputType="number"
@@ -79,6 +80,7 @@
                         android:id="@+id/them_edtTen"
                         android:layout_width="300dp"
                         android:layout_height="50dp"
+                        android:background="@android:drawable/editbox_background_normal"
                         android:gravity="center"
                         android:hint="Họ Tên"
                         android:inputType="text"
@@ -92,6 +94,7 @@
                 android:id="@+id/them_RadioGroupGioiTinh"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
+                android:layout_marginLeft="-20dp"
                 android:orientation="horizontal">
 
                 <RadioButton
@@ -142,12 +145,14 @@
                             android:layout_marginRight="20dp"
                             android:text="Ngày Sinh"
                             android:textAlignment="textStart"
-                            android:textSize="20sp" />
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
 
                         <EditText
                             android:id="@+id/them_edtNgaySinh"
                             android:layout_width="181dp"
                             android:layout_height="wrap_content"
+                            android:background="@android:drawable/editbox_background_normal"
                             android:hint="Birth Of Day"
                             android:inputType="datetime|date"
                             android:paddingLeft="20dp"
@@ -166,12 +171,14 @@
                             android:layout_height="wrap_content"
                             android:text="Năm Học"
                             android:textAlignment="textEnd"
-                            android:textSize="20sp" />
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
 
                         <EditText
                             android:id="@+id/them_edtNamHoc"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:background="@android:drawable/editbox_background_normal"
                             android:gravity="end"
                             android:hint="Year Course"
                             android:inputType="number"
@@ -188,9 +195,11 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="96dp"
-                android:layout_margin="10dp"
-                android:background="#E7E9F5"
+                android:layout_height="46dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
                 android:gravity="center|start">
 
                 <!--  LAYOUT-BUTTONS-CRUD -->
@@ -200,14 +209,15 @@
                     android:layout_marginLeft="5dp"
                     android:text="Khoa"
                     android:textAlignment="textStart"
-                    android:textSize="20sp"
+                    android:textSize="24sp"
                     android:textStyle="bold" />
 
                 <Spinner
                     android:id="@+id/them_SpinnerKhoa"
-                    android:layout_width="242dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="150dp"
+                    android:layout_height="match_parent"
                     android:layout_marginLeft="5dp"
+                    android:background="@android:drawable/btn_dropdown"
                     android:gravity="center|start" />
 
                 <!--  LAYOUT-BUTTONS-ADVANCE -->
@@ -216,20 +226,23 @@
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp">
 
                 <Button
                     android:id="@+id/them_btnClear"
-                    android:layout_width="100dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
+                    android:drawableRight="@android:drawable/stat_notify_sync"
                     android:text="CLEAR" />
 
                 <Button
                     android:id="@+id/them_btnThem"
-                    android:layout_width="100dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
 
+                    android:drawableRight="@android:drawable/ic_input_add"
                     android:text="THÊM" />
 
             </LinearLayout>

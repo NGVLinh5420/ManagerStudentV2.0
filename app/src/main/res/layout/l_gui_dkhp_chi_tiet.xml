@@ -43,8 +43,9 @@
         <TextView
             android:id="@+id/dkm_tvMssvTen"
             android:layout_width="match_parent"
-            android:layout_height="65dp"
-            android:layout_weight="1"
+            android:layout_height="80dp"
+            android:layout_margin="10dp"
+            android:background="@android:drawable/editbox_background_normal"
             android:gravity="center"
             android:text="MSSV+Ten"
             android:textColor="#4CAF50"
@@ -57,7 +58,8 @@
         android:id="@+id/dkm_tvKhoa"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
+        android:layout_marginTop="-10dp"
+        android:background="@android:drawable/editbox_background_normal"
         android:gravity="center"
         android:text="Khoa"
         android:textColor="#6750A3"
@@ -66,7 +68,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_marginTop="10dp"
         android:gravity="center|start"
         android:padding="5dp">
@@ -82,18 +84,19 @@
         <Spinner
             android:id="@+id/dkm_spHocKy"
             android:layout_width="170dp"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:background="@android:drawable/btn_dropdown" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_height="60dp"
         android:gravity="center|start"
         android:padding="5dp">
 
         <!--  LAYOUT-BUTTONS-CRUD -->
+
         <TextView
             android:layout_width="90dp"
             android:layout_height="wrap_content"
@@ -107,18 +110,38 @@
             android:layout_width="170dp"
             android:layout_height="match_parent"
             android:layout_marginRight="10dp"
+            android:background="@android:drawable/btn_dropdown"
             android:gravity="center|start" />
 
         <!--  LAYOUT-BUTTONS-ADVANCE -->
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/dkm_btnDangKy"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="150dp"
-        android:text="Đăng Ký" />
+        android:layout_marginRight="5dp"
+        android:gravity="center|end"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/dkm_btnDangKy"
+            android:layout_width="140dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="120dp"
+            android:backgroundTint="#4CAF50"
+            android:drawableLeft="?attr/actionModePasteDrawable"
+            android:text="Đăng Ký" />
+
+        <Button
+            android:id="@+id/dkm_btnRemove"
+            android:layout_width="140dp"
+            android:layout_height="50dp"
+            android:backgroundTint="#FF493C"
+            android:drawableLeft="@android:drawable/ic_menu_close_clear_cancel"
+            android:text="Huỷ HP" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -134,7 +157,21 @@
 
         <TextView
             android:id="@+id/dkm_tvSLMonDK"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textAlignment="textEnd" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="/"
+            tools:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/dkm_tvSLMon"
+            android:layout_width="20dp"
+            android:textStyle="bold"
             android:layout_height="wrap_content"
             android:text="0" />
     </LinearLayout>
@@ -144,20 +181,6 @@
         android:layout_width="match_parent"
         android:layout_height="526dp"
         android:layout_margin="10dp"
-        android:background="@android:color/system_accent1_100" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginRight="5dp"
-        android:gravity="center|end"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/dkm_btnRemove"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Huỷ Học Phần" />
-    </LinearLayout>
+        android:background="@android:drawable/editbox_dropdown_light_frame" />
 
 </LinearLayout>

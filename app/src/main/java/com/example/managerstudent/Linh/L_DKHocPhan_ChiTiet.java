@@ -20,7 +20,7 @@ import com.example.managerstudent.R;
 import java.util.ArrayList;
 
 public class L_DKHocPhan_ChiTiet extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-    private TextView tvMssvTen, tvKhoa, tvSLHP;
+    private TextView tvMssvTen, tvKhoa, tvSLHPDK, tvSLHP;
     private Spinner spHocKy, spMonHoc;
     private Button btnBack, btnDangKy, btnHuyHP;
     private ListView lvHocPhan;
@@ -47,7 +47,8 @@ public class L_DKHocPhan_ChiTiet extends AppCompatActivity implements AdapterVie
         tvMssvTen = findViewById(R.id.dkm_tvMssvTen);
         tvKhoa = findViewById(R.id.dkm_tvKhoa);
         tvKhoa.setText(DBSV.getLuuSinhVien().get_Khoa());
-        tvSLHP = findViewById(R.id.dkm_tvSLMonDK);
+        tvSLHPDK = findViewById(R.id.dkm_tvSLMonDK);
+        tvSLHP = findViewById(R.id.dkm_tvSLMon);
 
         btnBack = findViewById(R.id.dkm_btnBack);
         btnDangKy = findViewById(R.id.dkm_btnDangKy);
@@ -101,12 +102,13 @@ public class L_DKHocPhan_ChiTiet extends AppCompatActivity implements AdapterVie
                         adapterLV.addAll(LayDSMonHocDaDK());
                         adapterLV.notifyDataSetChanged();
                         lvHocPhan.setAdapter(adapterLV);
-                        tvSLHP.setText("" + lvHocPhan.getCount());
+                        tvSLHPDK.setText("" + lvHocPhan.getCount());
                         //**
 
                         Toast.makeText(L_DKHocPhan_ChiTiet.this, "ĐK Thành Công.", Toast.LENGTH_SHORT).show();
                     }
-                } else Toast.makeText(L_DKHocPhan_ChiTiet.this, "ĐK Lỗi.", Toast.LENGTH_SHORT).show();
+                } else
+                    Toast.makeText(L_DKHocPhan_ChiTiet.this, "ĐK Lỗi.", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -133,7 +135,7 @@ public class L_DKHocPhan_ChiTiet extends AppCompatActivity implements AdapterVie
                     adapterLV.addAll(LayDSMonHocDaDK());
                     adapterLV.notifyDataSetChanged();
                     lvHocPhan.setAdapter(adapterLV);
-                    tvSLHP.setText("" + lvHocPhan.getCount());
+                    tvSLHPDK.setText("" + lvHocPhan.getCount());
                     //**
 
                     vtriHP = -1;
@@ -157,7 +159,7 @@ public class L_DKHocPhan_ChiTiet extends AppCompatActivity implements AdapterVie
 
         dbSV.Doc_DKMH(DBSV.getLuuSinhVien().get_MSSV());
         lvHocPhan.setAdapter(adapterLV);
-        tvSLHP.setText("" + lvHocPhan.getCount());
+        tvSLHPDK.setText("" + lvHocPhan.getCount());
 
         //spinner Học Phần
         ArrayAdapter<String> adapterSPMonHoc = new ArrayAdapter<>(this,
@@ -174,6 +176,8 @@ public class L_DKHocPhan_ChiTiet extends AppCompatActivity implements AdapterVie
             DTO_HocPhan monHoc = dsmon.get(i);
             ds.add(monHoc.getTenMH());
         }
+
+        tvSLHP.setText("" + ds.size());
         return ds;
     }
 
