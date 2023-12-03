@@ -36,28 +36,54 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:gravity="center|end">
+        android:layout_height="50dp"
+        android:layout_marginLeft="-60dp"
+        android:layout_marginTop="5dp"
+        android:gravity="center">
 
         <!--  LAYOUT-BUTTONS-CRUD -->
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:text="Khoa"
-            android:textAlignment="textStart"
+            android:textAlignment="viewEnd"
             android:textSize="20sp"
             android:textStyle="bold" />
 
         <Spinner
             android:id="@+id/dtk_SpinnerKhoa"
-            android:layout_width="242dp"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
+            android:background="@android:drawable/btn_dropdown"
             android:gravity="center|start" />
 
         <!--  LAYOUT-BUTTONS-ADVANCE -->
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="-60dp"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:gravity="center|end"
+            android:text="Học Kỳ"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/dtk_SpinnerHK"
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:background="@android:drawable/btn_dropdown" />
 
     </LinearLayout>
 

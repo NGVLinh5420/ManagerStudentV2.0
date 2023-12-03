@@ -121,13 +121,12 @@ public class L_SinhVien_ThongTin extends AppCompatActivity implements AdapterVie
 
                 if (index > -1) {
                     dbSV.Xoa_SinhVien(mssv);
-                    dbSV.Xoa_Diem(mssv);
-
+                    dbSV.Xoa_Diem_XoaSV(mssv);
                     dbSV.Doc_SinhVien();
 
                     //
                     Toast.makeText(L_SinhVien_ThongTin.this, "Đã Xoá Sinh Viên [ " + mssv + " ].", Toast.LENGTH_SHORT).show();
-                    L_SinhVienActivity.adapterListView.notifyDataSetChanged();
+                    L_SinhVien_Activity.adapterListView.notifyDataSetChanged();
                     onBackPressed();
 
                 } else {
@@ -163,7 +162,7 @@ public class L_SinhVien_ThongTin extends AppCompatActivity implements AdapterVie
                     //
                     dbSV.Sua_SinhVien(sv);
                     Toast.makeText(L_SinhVien_ThongTin.this, "Sửa Thành Công!!", Toast.LENGTH_SHORT).show();
-                    L_SinhVienActivity.adapterListView.notifyDataSetChanged();
+                    L_SinhVien_Activity.adapterListView.notifyDataSetChanged();
                     onBackPressed();
 
                 } else {

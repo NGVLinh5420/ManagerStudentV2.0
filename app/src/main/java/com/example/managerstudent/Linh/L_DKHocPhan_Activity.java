@@ -1,5 +1,8 @@
 package com.example.managerstudent.Linh;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,17 +12,14 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.managerstudent.DB.DBSV;
 import com.example.managerstudent.DTO.DTO_SV;
 import com.example.managerstudent.R;
 
-public class L_SinhVienActivity extends AppCompatActivity {
+public class L_DKHocPhan_Activity extends AppCompatActivity {
 
     TextView tvSoLuongSV;
-    Button btnBack, btnThem;
+    Button btnBack;
     private ListView lvSinhVien;
     static public ArrayAdapter<DTO_SV> adapterListView;
 
@@ -30,18 +30,17 @@ public class L_SinhVienActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.l_gui_sv_activity);
+        setContentView(R.layout.l_gui_dkhp_activity);
 
         setControl();
         setEvent();
     }
 
     private void setControl() {
-        btnBack = findViewById(R.id.tt_btnBack);
-        btnThem = findViewById(R.id.tt_btnthem);
+        btnBack = findViewById(R.id.dkm_btnBack);
 
-        tvSoLuongSV = findViewById(R.id.tt_tvSoLuongSV);
-        lvSinhVien = findViewById(R.id.thongtin_lvSinhVien);
+        tvSoLuongSV = findViewById(R.id.dkm_tvSoLuongSV);
+        lvSinhVien = findViewById(R.id.dkm_lvSinhVien);
     }
 
     private void setEvent() {
@@ -63,16 +62,10 @@ public class L_SinhVienActivity extends AppCompatActivity {
         lvSinhVien.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View v, int i, long viTri) {
-                //Tìm đối tượng sv ở vị trí đã Click và lưu MSSV của nó vào DBSV
-                ClickListView(DBSV.getDsSinhVien().get((int) viTri).get_MSSV());
-            }
-        });
+                //Truyền MSSV của đối tượng SV đã Click sang class.Thông tin chi tiết
+                DBSV.setLuuSinhVien(DBSV.getDsSinhVien().get((int) viTri));
 
-        //Thêm Mới SV
-        btnThem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(L_SinhVienActivity.this, L_SinhVien_Them.class);
+                Intent intent = new Intent(L_DKHocPhan_Activity.this, L_DKHocPhan_ChiTiet.class);
                 startActivity(intent);
             }
         });
@@ -81,19 +74,8 @@ public class L_SinhVienActivity extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                L_SinhVienActivity.super.onBackPressed();
+                L_DKHocPhan_Activity.super.onBackPressed();
             }
         });
-    }
-
-
-    // Click List View
-    private void ClickListView(String mssv) {
-
-        //Truyền MSSV của đối tượng SV đã Click sang class.Thông tin chi tiết
-        DBSV.setLuuMSSV(mssv);
-
-        Intent intent = new Intent(L_SinhVienActivity.this, L_SinhVien_ThongTin.class);
-        startActivity(intent);
     }
 }

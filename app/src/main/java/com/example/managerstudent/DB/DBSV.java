@@ -69,7 +69,7 @@ public class DBSV extends SQLiteOpenHelper {
         arrSQL.clear();
 
         //--3. Sinh Viên
-        arrSQL.add("INSERT INTO tbSINHVIEN\n VALUES (\"22211\", \"NGUYEN VAN LINH\", \"NAM\", \"05/04/2000\", \"CNTT\", \"2022\");");
+        arrSQL.add("INSERT INTO tbSINHVIEN VALUES(\"22211\", \"NGUYEN VAN LINH\", \"NAM\", \"05/04/2000\", \"CNTT\", \"2022\");");
         arrSQL.add("INSERT INTO tbSINHVIEN VALUES(\"22212\", \"NGUYEN VAN LONG\", \"NAM\", \"01/12/2000\", \"CNTT\", \"2021\");");
         arrSQL.add("INSERT INTO tbSINHVIEN VALUES(\"22213\", \"NGUYEN THI LINH\", \"NU\", \"01/02/2004\", \"DO HOA\", \"2020\");");
         arrSQL.add("INSERT INTO tbSINHVIEN VALUES(\"22214\", \"NGUYEN VAN MINH\", \"NAM\", \"04/08/2000\", \"DIEN TU\", \"2023\");");
@@ -86,10 +86,10 @@ public class DBSV extends SQLiteOpenHelper {
         arrSQL.clear();
 
         //--5. Điểm
-        arrSQL.add("INSERT INTO tbDIEM VALUES (\"1\", \"22212\", \"5\", \"6\");");
-        arrSQL.add("INSERT INTO tbDIEM VALUES (\"2\", \"22212\", \"7\", \"8\");");
+        arrSQL.add("INSERT INTO tbDIEM VALUES (\"1\", \"22212\", \"8\", \"9\");");
+        arrSQL.add("INSERT INTO tbDIEM VALUES (\"2\", \"22212\", \"8\", \"10\");");
         arrSQL.add("INSERT INTO tbDIEM VALUES (\"3\", \"22212\", \"9\", \"10\");");
-        arrSQL.add("INSERT INTO tbDIEM VALUES (\"4\", \"22212\", \"5\", \"10\");");
+        arrSQL.add("INSERT INTO tbDIEM VALUES (\"4\", \"22212\", \"8\", \"10\");");
         arrSQL.forEach(sql -> db.execSQL(sql));
         arrSQL.clear();
     }
@@ -215,6 +215,40 @@ public class DBSV extends SQLiteOpenHelper {
                 dsSinhVien.add(sv);
             } while (cursor.moveToNext());
         }
+    }
+
+    //Đọc danh sách sinh viên có tổng điểm trung bình (là trung bình cộng của diem1 và diem2 của tất cả môn học)
+    // lớn hơn hoặc bằng 8 ở khoa và trong HK
+    public ArrayList<DTO_SV> Doc_SinhVien_Gioi(String tenKhoa, String hocKy) {
+        ArrayList<DTO_SV> dsSVGioi = new ArrayList<>();
+        SQLiteDatabase db = getReadableDatabase();
+
+        String quertyDoc = "SELECT tbSINHVIEN.*\n" +
+                "FROM tbSINHVIEN\n" +
+                "JOIN (\n" +
+                "    SELECT mssv, AVG((diem1 + diem2) / 2.0) AS avgDiem\n" +
+                "    FROM tbDIEM\n" +
+                "    JOIN tbMONHOC ON tbDIEM.mamh = tbMONHOC.mamh\n" +
+                "    WHERE tbMONHOC.tenkhoa=? AND tbMONHOC.hocky=? \n" +
+                "    GROUP BY mssv\n" +
+                ") AS tbDiemTB ON tbSINHVIEN.mssv = tbDiemTB.mssv\n" +
+                "WHERE tbDiemTB.avgDiem >= 8;";
+
+        Cursor cursor = db.rawQuery(quertyDoc, new String[]{tenKhoa, hocKy});
+        if (cursor.moveToFirst()) {
+            do {
+                DTO_SV sv = new DTO_SV();
+                sv.set_MSSV(cursor.getString(0));
+                sv.set_Ten(cursor.getString(1));
+                sv.set_GioiTinh(cursor.getString(2));
+                sv.set_NgaySinh(cursor.getString(3));
+                sv.set_Khoa(cursor.getString(4));
+                sv.set_NamHoc(cursor.getString(5));
+                dsSVGioi.add(sv);
+            } while (cursor.moveToNext());
+        }
+
+        return dsSVGioi;
     }
 
     public void Doc_Diem() {
@@ -437,11 +471,18 @@ public class DBSV extends SQLiteOpenHelper {
         database.execSQL(quertyXoa, new String[]{mssv});
     }
 
-    public void Xoa_Diem(String mssv) {
+    public void Xoa_DiemTheoSV_HP(String mssv, String maMH) {
+        SQLiteDatabase database = getWritableDatabase();
+        String quertyXoa = "DELETE FROM tbDIEM WHERE mssv=? AND mamh=?";
+        database.execSQL(quertyXoa, new String[]{mssv, maMH});
+    }
+
+    public void Xoa_Diem_XoaSV(String mssv) {
         SQLiteDatabase database = getWritableDatabase();
         String quertyXoa = "DELETE FROM tbDIEM WHERE mssv=?";
         database.execSQL(quertyXoa, new String[]{mssv});
     }
+
 
     public void Xoa_Khoa(String tenkhoa) {
         SQLiteDatabase db = getWritableDatabase();
@@ -474,7 +515,7 @@ public class DBSV extends SQLiteOpenHelper {
 
     public void Sua_Diem(DTO_Diem d) {
         SQLiteDatabase db = getWritableDatabase();
-        String quertyDiem = "UPDATE tbDIEM SET diem1=?, diem2=? WHERE mssv=? and mon=?";
+        String quertyDiem = "UPDATE tbDIEM SET diem1=?, diem2=? WHERE mssv=? AND mamh=?";
         db.execSQL(quertyDiem, new String[]{d.get_diem1(), d.get_diem2(), d.get_mssv(), d.get_mamh()});
     }
 

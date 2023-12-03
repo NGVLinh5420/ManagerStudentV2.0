@@ -13,12 +13,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.managerstudent.DB.DBSV;
+import com.example.managerstudent.DTO.DTO_Diem;
 import com.example.managerstudent.DTO.DTO_HocPhan;
 import com.example.managerstudent.R;
 
 import java.util.ArrayList;
 
-public class L_DKMon_ChiTiet extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class L_DKHocPhan_ChiTiet extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private TextView tvMssvTen, tvKhoa, tvSLHP;
     private Spinner spHocKy, spMonHoc;
     private Button btnBack, btnDangKy, btnHuyHP;
@@ -70,7 +71,7 @@ public class L_DKMon_ChiTiet extends AppCompatActivity implements AdapterView.On
         tvMssvTen.setText(maSV + "\n" + DBSV.getLuuSinhVien().get_Ten());
         tvKhoa.setText(DBSV.getLuuSinhVien().get_Khoa());
 
-        adapterLV = new ArrayAdapter<>(L_DKMon_ChiTiet.this, android.R.layout.simple_list_item_1, LayDSMonHocDaDK());
+        adapterLV = new ArrayAdapter<>(L_DKHocPhan_ChiTiet.this, android.R.layout.simple_list_item_1, LayDSMonHocDaDK());
 
         //--2.Buttons
         btnDangKy.setOnClickListener(new View.OnClickListener() {
@@ -84,7 +85,7 @@ public class L_DKMon_ChiTiet extends AppCompatActivity implements AdapterView.On
                     Boolean flag = true;
                     for (DTO_HocPhan hp : LayDSMonHocDaDK()) {
                         if (hp.getMaMH().equals(maMH)) {
-                            Toast.makeText(L_DKMon_ChiTiet.this, "SV Đã ĐK HP này.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(L_DKHocPhan_ChiTiet.this, "SV Đã ĐK HP này.", Toast.LENGTH_SHORT).show();
                             flag = false;
                         }
                     }
@@ -92,6 +93,7 @@ public class L_DKMon_ChiTiet extends AppCompatActivity implements AdapterView.On
                     // ĐK
                     if (flag) {
                         dbSV.DK_MonHoc(maSV, maMH);
+                        dbSV.Them_Diem(new DTO_Diem(maMH, maSV, "0", "0"));
                         dbSV.Doc_DKMH(maSV);
 
                         //** Làm mới listview theo thời gian thực
@@ -102,9 +104,9 @@ public class L_DKMon_ChiTiet extends AppCompatActivity implements AdapterView.On
                         tvSLHP.setText("" + lvHocPhan.getCount());
                         //**
 
-                        Toast.makeText(L_DKMon_ChiTiet.this, "ĐK Thành Công.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(L_DKHocPhan_ChiTiet.this, "ĐK Thành Công.", Toast.LENGTH_SHORT).show();
                     }
-                } else Toast.makeText(L_DKMon_ChiTiet.this, "ĐK Lỗi.", Toast.LENGTH_SHORT).show();
+                } else Toast.makeText(L_DKHocPhan_ChiTiet.this, "ĐK Lỗi.", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -123,6 +125,7 @@ public class L_DKMon_ChiTiet extends AppCompatActivity implements AdapterView.On
                     String maSV = DBSV.dsDKMH.get(vtriHP).getMaSV();
 
                     dbSV.Xoa_DKMH(maSV, maMH);
+                    dbSV.Xoa_DiemTheoSV_HP(maSV, maMH);
                     dbSV.Doc_DKMH(maSV);
 
                     //** Làm mới listview theo thời gian thực
@@ -134,16 +137,16 @@ public class L_DKMon_ChiTiet extends AppCompatActivity implements AdapterView.On
                     //**
 
                     vtriHP = -1;
-                    Toast.makeText(L_DKMon_ChiTiet.this, "Đã Huỷ Mã HP: " + maMH, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(L_DKHocPhan_ChiTiet.this, "Đã Huỷ Mã HP: " + maMH, Toast.LENGTH_SHORT).show();
                 } else
-                    Toast.makeText(L_DKMon_ChiTiet.this, "Chưa Chọn Học Phần.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(L_DKHocPhan_ChiTiet.this, "Chưa Chọn Học Phần.", Toast.LENGTH_SHORT).show();
             }
         });
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                L_DKMon_ChiTiet.super.onBackPressed();
+                L_DKHocPhan_ChiTiet.super.onBackPressed();
             }
         });
     }
@@ -156,7 +159,7 @@ public class L_DKMon_ChiTiet extends AppCompatActivity implements AdapterView.On
         lvHocPhan.setAdapter(adapterLV);
         tvSLHP.setText("" + lvHocPhan.getCount());
 
-        //spinner Mon Hoc
+        //spinner Học Phần
         ArrayAdapter<String> adapterSPMonHoc = new ArrayAdapter<>(this,
                 android.R.layout.select_dialog_item, LayDSMonHoc(hocky));
         spMonHoc.setAdapter(adapterSPMonHoc);

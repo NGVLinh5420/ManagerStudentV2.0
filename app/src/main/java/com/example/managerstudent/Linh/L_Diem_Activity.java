@@ -16,7 +16,7 @@ import com.example.managerstudent.DB.DBSV;
 import com.example.managerstudent.DTO.DTO_SV;
 import com.example.managerstudent.R;
 
-public class L_DiemActivity extends AppCompatActivity {
+public class L_Diem_Activity extends AppCompatActivity {
 
     //    private String luuMssv;
 //    private TextView tvMssvTen, tvDiem1, tvDiem2, tvDiem3, tvKhoa, tvSoLuongSV;
@@ -67,7 +67,7 @@ public class L_DiemActivity extends AppCompatActivity {
                 //Truyền đối tượng SV đã Click sang Activity tiếp theo
                 DBSV.luuSinhVien = DBSV.dsSinhVien.get((int) viTri);
 
-                Intent intent = new Intent(L_DiemActivity.this, L_Diem_SinhVien.class);
+                Intent intent = new Intent(L_Diem_Activity.this, L_Diem_SinhVien.class);
                 startActivity(intent);
             }
         });
@@ -77,7 +77,7 @@ public class L_DiemActivity extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                L_DiemActivity.super.onBackPressed();
+                L_Diem_Activity.super.onBackPressed();
             }
         });
 
@@ -85,7 +85,7 @@ public class L_DiemActivity extends AppCompatActivity {
         btnThongKe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(L_DiemActivity.this, L_Diem_ThongKe_Gioi.class);
+                Intent intent = new Intent(L_Diem_Activity.this, L_Diem_ThongKe_Gioi.class);
                 startActivity(intent);
             }
         });
@@ -98,7 +98,7 @@ public class L_DiemActivity extends AppCompatActivity {
 //                edtDiem1.setText(null);
 //                edtDiem2.setText(null);
 //                edtDiem3.setText(null);
-//                Toast.makeText(L_DiemActivity.this, "Đã Clear.", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(L_Diem_Activity.this, "Đã Clear.", Toast.LENGTH_SHORT).show();
 //            }
 //        });
 //        // Button SAVE
@@ -127,7 +127,7 @@ public class L_DiemActivity extends AppCompatActivity {
 //                lvSinhVien.setAdapter(adapterListView);
 //
 //                //End
-//                Toast.makeText(L_DiemActivity.this, "Lưu Thành Công!!", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(L_Diem_Activity.this, "Lưu Thành Công!!", Toast.LENGTH_SHORT).show();
 //            }
 //        });
     }

@@ -15,9 +15,9 @@ import android.view.MenuItem;
 
 import com.example.managerstudent.DB.DBSV;
 import com.example.managerstudent.Linh.L_ThongKe_BarChart;
-import com.example.managerstudent.Linh.L_DKMon_DS;
-import com.example.managerstudent.Linh.L_DiemActivity;
-import com.example.managerstudent.Linh.L_SinhVienActivity;
+import com.example.managerstudent.Linh.L_DKHocPhan_Activity;
+import com.example.managerstudent.Linh.L_Diem_Activity;
+import com.example.managerstudent.Linh.L_SinhVien_Activity;
 import com.example.managerstudent.Minh.M_Khoa;
 import com.example.managerstudent.fragment.Fragment_Home;
 import com.google.android.material.navigation.NavigationView;
@@ -91,12 +91,12 @@ public class Activity_Main extends AppCompatActivity implements NavigationView.O
         }
 
         if (id == R.id.menu_nav_Info) {
-            Intent intent = new Intent(this, L_SinhVienActivity.class);
+            Intent intent = new Intent(this, L_SinhVien_Activity.class);
             startActivity(intent);
         }
 
         if (id == R.id.menu_nav_Score) {
-            Intent intent = new Intent(this, L_DiemActivity.class);
+            Intent intent = new Intent(this, L_Diem_Activity.class);
             startActivity(intent);
         }
 
@@ -106,7 +106,7 @@ public class Activity_Main extends AppCompatActivity implements NavigationView.O
         }
 
         if (id == R.id.menu_nav_DKmon) {
-            Intent intent = new Intent(this, L_DKMon_DS.class);
+            Intent intent = new Intent(this, L_DKHocPhan_Activity.class);
             startActivity(intent);
         }
 

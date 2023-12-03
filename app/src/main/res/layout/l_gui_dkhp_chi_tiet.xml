@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="center|top"
     android:orientation="vertical"
-    tools:context=".Linh.L_DKMon_ChiTiet">
+    tools:context=".Linh.L_DKHocPhan_ChiTiet">
 
     <LinearLayout
         android:layout_width="match_parent"

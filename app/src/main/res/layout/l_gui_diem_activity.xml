@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="top|start"
     android:orientation="vertical"
-    tools:context=".Linh.L_DiemActivity">
+    tools:context=".Linh.L_Diem_Activity">
 
     <!--    APP NAME-->
 

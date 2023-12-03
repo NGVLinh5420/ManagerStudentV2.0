@@ -98,7 +98,7 @@ public class L_SinhVien_Them extends AppCompatActivity implements AdapterView.On
 
                     //
                     Toast.makeText(L_SinhVien_Them.this, "Thêm thành công", Toast.LENGTH_SHORT).show();
-                    L_SinhVienActivity.adapterListView.notifyDataSetChanged();
+                    L_SinhVien_Activity.adapterListView.notifyDataSetChanged();
                     onBackPressed();
 
                 } else {

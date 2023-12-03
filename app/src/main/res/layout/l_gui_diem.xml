@@ -169,6 +169,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginLeft="50dp"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="horizontal">
@@ -187,7 +188,14 @@
                         android:layout_height="match_parent"
                         android:background="@android:drawable/editbox_background_normal"
                         android:enabled="false"
-                        android:inputType="numberDecimal" />
+                        android:inputType="none" />
+
+                    <ImageButton
+                        android:id="@+id/d_ibtnRefresh"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@android:drawable/editbox_background_normal"
+                        android:src="@drawable/baseline_refresh_24" />
 
                 </LinearLayout>
 
@@ -210,7 +218,7 @@
                     android:textStyle="bold" />
 
                 <ImageButton
-                    android:id="@+id/d_imgbtnSave"
+                    android:id="@+id/d_ibtnSave"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0"

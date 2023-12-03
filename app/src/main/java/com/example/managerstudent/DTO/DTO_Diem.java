@@ -3,11 +3,14 @@ package com.example.managerstudent.DTO;
 import java.io.Serializable;
 
 public class DTO_Diem implements Serializable {
-
-
     private String _mamh, _mssv, _diem1, _diem2;
 
     public DTO_Diem() {
+    }
+
+    public DTO_Diem(String _mamh, String _mssv) {
+        this._mamh = _mamh;
+        this._mssv = _mssv;
     }
 
     public DTO_Diem(String _mamh, String _mssv, String _diem1, String _diem2) {

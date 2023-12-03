@@ -19,21 +19,21 @@
             android:name=".Linh.L_ThongKe_BarChart"
             android:exported="false" />
         <activity
-            android:name=".Linh.L_DKMon_ChiTiet"
+            android:name=".Linh.L_DKHocPhan_ChiTiet"
             android:exported="false"
-            android:parentActivityName=".Linh.L_DKMon_DS" />
+            android:parentActivityName=".Linh.L_DKHocPhan_Activity" />
         <activity
             android:name=".Linh.L_Diem_SinhVien"
             android:exported="false"
-            android:parentActivityName=".Linh.L_DiemActivity" />
+            android:parentActivityName=".Linh.L_Diem_Activity" />
         <activity
-            android:name=".Linh.L_DKMon_DS"
+            android:name=".Linh.L_DKHocPhan_Activity"
             android:exported="false"
             android:parentActivityName=".Activity_Main" />
         <activity
             android:name=".Linh.L_SinhVien_Them"
             android:exported="false"
-            android:parentActivityName=".Linh.L_SinhVienActivity" />
+            android:parentActivityName=".Linh.L_SinhVien_Activity" />
         <activity
             android:name=".Activity_Login"
             android:exported="true"
@@ -54,17 +54,17 @@
             android:exported="false"
             android:noHistory="false" />
         <activity
-            android:name=".Linh.L_DiemActivity"
+            android:name=".Linh.L_Diem_Activity"
             android:exported="false"
             android:parentActivityName=".Activity_Main" />
         <activity
-            android:name=".Linh.L_SinhVienActivity"
+            android:name=".Linh.L_SinhVien_Activity"
             android:exported="false"
             android:parentActivityName=".Activity_Main" />
         <activity
             android:name=".Linh.L_SinhVien_ThongTin"
             android:exported="false"
-            android:parentActivityName=".Linh.L_SinhVienActivity" />
+            android:parentActivityName=".Linh.L_SinhVien_Activity" />
         <activity
             android:name=".Minh.M_MonHoc_Sua"
             android:exported="false"
