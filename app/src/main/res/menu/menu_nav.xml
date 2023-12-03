@@ -25,6 +25,10 @@
                 android:id="@+id/menu_nav_Info"
                 android:icon="@drawable/l_baseline_list_alt_24"
                 android:title="Sinh Viên" />
+            <item
+                android:id="@+id/menu_nav_ThongKeBarChart"
+                android:icon="@drawable/baseline_add_chart_24"
+                android:title="Thống Kê SV Toàn Khoa" />
         </menu>
     </item>
 
@@ -34,10 +38,6 @@
                 android:id="@+id/menu_nav_Score"
                 android:icon="@drawable/l_baseline_sports_score_24"
                 android:title="Điểm Số" />
-            <item
-                android:id="@+id/menu_nav_ThongKeDiem"
-                android:icon="@drawable/baseline_add_chart_24"
-                android:title="Thống Kê Điểm" />
         </menu>
     </item>
 

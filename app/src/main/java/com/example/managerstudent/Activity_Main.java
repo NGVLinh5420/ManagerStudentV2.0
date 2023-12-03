@@ -110,7 +110,7 @@ public class Activity_Main extends AppCompatActivity implements NavigationView.O
             startActivity(intent);
         }
 
-        if (id == R.id.menu_nav_ThongKeDiem) {
+        if (id == R.id.menu_nav_ThongKeBarChart) {
             Intent intent = new Intent(this, L_ThongKe_BarChart.class);
             startActivity(intent);
         }

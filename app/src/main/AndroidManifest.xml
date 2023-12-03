@@ -13,6 +13,9 @@
         android:theme="@style/Theme.ManagerStudent"
         tools:targetApi="31">
         <activity
+            android:name=".Linh.L_TimKiem_Activity"
+            android:exported="false" />
+        <activity
             android:name=".Linh.L_Diem_ThongKe_Gioi"
             android:exported="false" />
         <activity
