@@ -57,6 +57,30 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="#E8EAF6"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="Kết Quả Tìm Kiếm: " />
+
+        <TextView
+            android:id="@+id/tk_tvSoLuongSV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="1"
+            android:text="0"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
     <ListView
         android:id="@+id/tk_lvSinhVien"
         android:layout_width="match_parent"
