@@ -9,12 +9,14 @@ import android.widget.Button;
 import com.example.managerstudent.DB.DBSV;
 import com.example.managerstudent.R;
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
@@ -92,6 +94,7 @@ public class L_ThongKe_BarChart extends AppCompatActivity {
 
         barChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(labels));
         barChart.getXAxis().setLabelCount(labels.size(), false);
+        barChart.setDoubleTapToZoomEnabled(false);
 
         BarData data = new BarData(dataSets);
         barChart.setData(data);
@@ -106,6 +109,7 @@ public class L_ThongKe_BarChart extends AppCompatActivity {
         });
         // Điều chỉnh kích thước của nhãn
         bardataset.setValueTextSize(20f);
+
     }
 
     public HashMap<String, Integer> CreateHashMap() {
@@ -125,6 +129,7 @@ public class L_ThongKe_BarChart extends AppCompatActivity {
         dbSV.Doc_SVTheoKhoa(khoa);
         return DBSV.dsSinhVien.size();
     }
+
 
 //    private void Barchar() {
 //        ArrayList<BarEntry> entries = new ArrayList<>();

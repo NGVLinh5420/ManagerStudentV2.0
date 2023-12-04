@@ -70,8 +70,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="Sign Up"
+        android:textColor="@color/white"
         android:textSize="30dp"
         android:textStyle="bold"
-        app:backgroundTint="#007DBD" />
+        app:backgroundTint="@android:color/transparent" />
 
 </LinearLayout>

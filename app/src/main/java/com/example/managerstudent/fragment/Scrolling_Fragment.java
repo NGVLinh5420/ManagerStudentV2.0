@@ -11,7 +11,7 @@ import androidx.annotation.Nullable;
 
 import com.example.managerstudent.R;
 
-public class ScrollingFragment extends Fragment {
+public class Scrolling_Fragment extends Fragment {
 
     @Nullable
     @Override

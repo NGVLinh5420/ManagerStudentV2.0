@@ -11,11 +11,10 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.CountDownTimer;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.managerstudent.DB.DBSV;
 import com.example.managerstudent.Linh.L_ThongKe_BarChart;
@@ -23,15 +22,16 @@ import com.example.managerstudent.Linh.L_DKHocPhan_Activity;
 import com.example.managerstudent.Linh.L_Diem_Activity;
 import com.example.managerstudent.Linh.L_SinhVien_Activity;
 import com.example.managerstudent.Minh.M_Khoa;
-import com.example.managerstudent.fragment.FragmentAccount;
+import com.example.managerstudent.fragment.Fragment_Account;
 import com.example.managerstudent.fragment.Fragment_Home;
-import com.example.managerstudent.fragment.ScrollingFragment;
+import com.example.managerstudent.fragment.Scrolling_Fragment;
 import com.google.android.material.navigation.NavigationView;
 
 public class Activity_Main extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private Toolbar toolbar;
+    private ImageButton btnLogOut;
     ActionBarDrawerToggle toggle;
 
     DBSV dbSV = new DBSV(this);
@@ -61,6 +61,7 @@ public class Activity_Main extends AppCompatActivity implements NavigationView.O
         drawerLayout = findViewById(R.id.drawer_Layout);
         toolbar = findViewById(R.id.nav_top_toobar);
         navigationView = findViewById(R.id.nav_view);
+        btnLogOut = findViewById(R.id.nav_top_toobar_btnLogOut);
     }
 
     private void setEvents() {
@@ -81,10 +82,22 @@ public class Activity_Main extends AppCompatActivity implements NavigationView.O
         //tao su kien khi nhan menu item.
         navigationView.setNavigationItemSelectedListener(this);
 
+        // Nút Log Out
+        btnLogOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                Intent intent = new Intent(Activity_Main.this, Activity_Login.class);
+                startActivity(intent);
+
+                Toast.makeText(Activity_Main.this, "Log Out.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         //First Data SQLite
 //        dbSV.FirstData();
-    }
 
+    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -128,19 +141,19 @@ public class Activity_Main extends AppCompatActivity implements NavigationView.O
         }
 
         if (id == R.id.menu_nav_TaiKhoan) {
-//            if (nowFragment == FRAGMENT_TAIKHOAN) {
-            replaceFragment(new FragmentAccount());
-            nowFragment = FRAGMENT_TAIKHOAN;
+            if (nowFragment != FRAGMENT_TAIKHOAN) {
+                replaceFragment(new Fragment_Account());
+                nowFragment = FRAGMENT_TAIKHOAN;
 
-            navigationView.getMenu().findItem(R.id.menu_nav_Home).setChecked(false);
-            navigationView.getMenu().findItem(R.id.menu_nav_TaiKhoan).setChecked(true);
-            navigationView.getMenu().findItem(R.id.menu_nav_DieuKhoan).setChecked(false);
-//            }
+                navigationView.getMenu().findItem(R.id.menu_nav_Home).setChecked(false);
+                navigationView.getMenu().findItem(R.id.menu_nav_TaiKhoan).setChecked(true);
+                navigationView.getMenu().findItem(R.id.menu_nav_DieuKhoan).setChecked(false);
+            }
         }
 
         if (id == R.id.menu_nav_DieuKhoan) {
             if (nowFragment != FRAGMENT_DIEUKHOAN) {
-                replaceFragment(new ScrollingFragment());
+                replaceFragment(new Scrolling_Fragment());
                 nowFragment = FRAGMENT_DIEUKHOAN;
 
                 navigationView.getMenu().findItem(R.id.menu_nav_Home).setChecked(false);

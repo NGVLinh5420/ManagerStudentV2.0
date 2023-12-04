@@ -23,7 +23,18 @@
                 android:id="@+id/nav_top_toobar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="@android:color/system_neutral1_100" />
+                android:background="@android:color/system_neutral1_100">
+
+                <ImageButton
+                    android:id="@+id/nav_top_toobar_btnLogOut"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|end"
+                    android:layout_margin="10dp"
+                    android:backgroundTint="@android:color/transparent"
+                    android:src="@drawable/baseline_logout_24" />
+
+            </androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.AppBarLayout>
 
         <FrameLayout

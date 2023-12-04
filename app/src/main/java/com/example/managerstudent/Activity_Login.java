@@ -1,8 +1,12 @@
 package com.example.managerstudent;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -10,6 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.managerstudent.DB.DBAccount;
@@ -23,33 +28,18 @@ public class Activity_Login extends AppCompatActivity {
     //DECLARE
     Button btnSignIn, btnSignUp;
     EditText edtUser, edtPassword;
-    List<M_Account> Acc = new ArrayList<>();
+    private Handler handler = new Handler();
+    private Runnable runnable;
+    TextView timeTextView;
 
+    List<M_Account> Acc = new ArrayList<>();
     DBAccount dbacconut = new DBAccount(this, null, null, 1);
-    public static int minutes = 0;
-    public static int seconds = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gui_login);
 
-        // Bắt đầu đếm thời gian khi ứng dụng được mở
-        long startTime = System.currentTimeMillis();
-        new CountDownTimer(Long.MAX_VALUE, 1000) {
-
-            public void onTick(long millisUntilFinished) {
-                long millis = System.currentTimeMillis() - startTime;
-                seconds = (int) (millis / 1000);
-                minutes = seconds / 60;
-                seconds = seconds % 60;
-            }
-
-            public void onFinish() {
-            }
-        }.start();
-
-        //
         Acc = dbacconut.getListAccount();
         setControls();
         setEvents();
@@ -82,11 +72,10 @@ public class Activity_Login extends AppCompatActivity {
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent inte = new Intent(Activity_Login.this, Activity_SignUp.class);
-                startActivity(inte);
+                Intent intent = new Intent(Activity_Login.this, Activity_SignUp.class);
+                startActivity(intent);
             }
         });
-
     }
 
     private void setControls() {
@@ -94,12 +83,53 @@ public class Activity_Login extends AppCompatActivity {
         btnSignUp = findViewById(R.id.btnSignUp);
         edtUser = findViewById(R.id.edtUser);
         edtPassword = findViewById(R.id.edtPassword);
+
+        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = inflater.inflate(R.layout.fragment_account, null);
+        timeTextView = view.findViewById(R.id.acc_tvTime);
+    }
+
+    @SuppressLint("MissingSuperCall")
+    @Override
+    public void onBackPressed() {
+//        finish();
+//        super.onBackPressed();
+
+        new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("Đóng Ứng Dụng")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finishAndRemoveTask();
+                    }
+                })
+                .setNegativeButton("No", null)
+                .show();
     }
 
     @Override
-    public void onBackPressed() {
-        finish();
-        super.onBackPressed();
+    public void onResume() {
+        super.onResume();
+        long startTime = System.currentTimeMillis();
+        runnable = new Runnable() {
+            @Override
+            public void run() {
+                long millis = System.currentTimeMillis() - startTime;
+                int seconds = (int) (millis / 1000) % 60;
+                int minutes = (int) ((millis / (1000 * 60)) % 60);
+                int hours = (int) ((millis / (1000 * 60 * 60)) % 24);
+                timeTextView.setText("Time Line\n" + String.format("%02d : %02d : %02d", hours, minutes, seconds));
+                handler.postDelayed(this, 1000);
+            }
+        };
+        handler.post(runnable);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        handler.removeCallbacks(runnable);
     }
 
 }

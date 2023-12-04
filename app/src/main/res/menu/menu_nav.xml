@@ -45,11 +45,11 @@
         <menu>
             <item
                 android:id="@+id/menu_nav_TaiKhoan"
-                android:icon="?attr/actionModePasteDrawable"
+                android:icon="@drawable/baseline_account_box_24"
                 android:title="Tài Khoản" />
             <item
                 android:id="@+id/menu_nav_DieuKhoan"
-                android:icon="@android:drawable/ic_menu_view"
+                android:icon="?attr/actionModePasteDrawable"
                 android:title="Điều Khoản Sử Dụng" />
             <item
                 android:id="@+id/menu_nav_Dangxuat"
